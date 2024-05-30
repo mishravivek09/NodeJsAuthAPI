@@ -80,9 +80,21 @@ exports.resetPassword = async (req, res) => {
 
 exports.deleteAllUsers = async (req, res) => {
   try {
-      await BanaoUsers.deleteMany({});
-      res.status(200).json({ success: true, message: 'All users deleted' });
+    await BanaoUsers.deleteMany({});
+    res.status(200).json({ success: true, message: 'All users deleted' });
   } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+
+    let users = await BanaoUsers.find();
+
+    res.status(200).json({ success: true, users });
+
+  } catch (error) {
+    res.status(400).json({ success: false, error: "User list is empty!" });
+  }
+}
